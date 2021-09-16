@@ -1,4 +1,6 @@
-import 'package:f_local_database_sqlite/data/datasources/remote/user_remote_model.dart';
+
+
+import 'package:f_local_database_sqlite_template/data/datasources/remote/user_remote_model.dart';
 
 class UserModel {
   UserModel({
