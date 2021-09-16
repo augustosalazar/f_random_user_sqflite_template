@@ -1,0 +1,47 @@
+import 'package:connectivity/connectivity.dart';
+import 'package:f_local_database_sqlite_template/core/network_info.dart';
+import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
+
+class HomeController extends GetxController {
+  final connectvityResult = ConnectivityResult.none.obs;
+  final NetworkInfo network = Get.find();
+  final connection = false.obs;
+
+  @override
+  Future onInit() async {
+    super.onInit();
+    // check for connectivity
+    connectvityResult.value = await network.connectivityResult;
+
+    if (connectvityResult.value == ConnectivityResult.none) {
+      //localFetch();
+      connection.value = false;
+      logInfo("No network");
+    } else {
+      //remoteFetch();
+      connection.value = true;
+      logInfo("Network found");
+    }
+
+    // listen to connectivity changed event and update connectvityResult value
+    network.onConnectivityChanged.listen((event) {
+      connectvityResult.value = event;
+      // automatically evoke remote fetch if device is offline
+      // and articles data is empty, null or in local view
+      if (event != ConnectivityResult.none) {
+        logInfo("Connection event");
+        connection.value = true;
+      } else {
+        logInfo("Disconnect event");
+        connection.value = false;
+      }
+    });
+  }
+
+  @override
+  void onClose() {
+    // close subscriptions for rx values
+    connectvityResult.close();
+  }
+}
