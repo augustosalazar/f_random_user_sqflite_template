@@ -14,7 +14,9 @@ class UserListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("User list"),
       ),
+      // this should show error msg when no connection and the icon portable_wifi_off_rounded
       floatingActionButton: FloatingActionButton(
+        key: Key('addUserButton'),
         child: Icon(Icons.add),
         onPressed: () async {},
       ),

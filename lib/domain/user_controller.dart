@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
 class UserController extends GetxController {
-  var users = <UserModel>[].obs;
+  var _users = <UserModel>[].obs;
   UserRepository repository = Get.find();
+
+  List<UserModel> get users => _users;
 
   @override
   onInit() {

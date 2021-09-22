@@ -6,7 +6,9 @@ import 'package:loggy/loggy.dart';
 class HomeController extends GetxController {
   final connectvityResult = ConnectivityResult.none.obs;
   final NetworkInfo network = Get.find();
-  final connection = false.obs;
+  final _connection = false.obs;
+
+  bool get connection => _connection.value;
 
   @override
   Future onInit() async {
@@ -16,11 +18,11 @@ class HomeController extends GetxController {
 
     if (connectvityResult.value == ConnectivityResult.none) {
       //localFetch();
-      connection.value = false;
+      _connection.value = false;
       logInfo("No network");
     } else {
       //remoteFetch();
-      connection.value = true;
+      _connection.value = true;
       logInfo("Network found");
     }
 
@@ -31,10 +33,10 @@ class HomeController extends GetxController {
       // and articles data is empty, null or in local view
       if (event != ConnectivityResult.none) {
         logInfo("Connection event");
-        connection.value = true;
+        _connection.value = true;
       } else {
         logInfo("Disconnect event");
-        connection.value = false;
+        _connection.value = false;
       }
     });
   }
