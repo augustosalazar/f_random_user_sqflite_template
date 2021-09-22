@@ -1,3 +1,4 @@
+import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
 import 'package:f_local_database_sqlite_template/domain/home_controller.dart';
 import 'package:f_local_database_sqlite_template/domain/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class UserListPage extends StatelessWidget {
   }
 
   Widget _getXlistView() {
+    // users should come from the controller
+    var users = <UserModel>[];
     return ListView.builder(
       itemCount: 0,
       itemBuilder: (context, index) {
