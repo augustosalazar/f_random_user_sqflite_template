@@ -7,7 +7,8 @@ class UserRepository {
   late UserLocalDataSource localDataSource;
 
   UserRepository() {
-
+    remoteDataSource = UserRemoteDatatasource();
+    localDataSource = UserLocalDataSource();
   }
 
   // Future<bool> getUser() async {
@@ -15,10 +16,10 @@ class UserRepository {
   // }
 
   // Future<List<UserModel>> getAllUsers() {
-    
+
   // }
 
   // Future<void> deleteUser(id) {
-    
+
   // }
 }
