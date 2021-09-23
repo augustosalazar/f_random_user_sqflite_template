@@ -80,12 +80,6 @@ void main() {
 
     expect(find.byKey(Key('addUserButton')), findsOneWidget);
 
-    await tester.tap(find.byKey(Key('addUserButton')));
-
-    await tester.pump();
-
-    await tester.pump();
-
     expect(find.byIcon(Icons.portable_wifi_off_rounded), findsOneWidget);
   });
 
@@ -111,19 +105,14 @@ void main() {
 
     expect(find.byKey(Key('addUserButton')), findsOneWidget);
 
-    await tester.tap(find.byKey(Key('addUserButton')));
-
-    await tester.pump();
-
-    await tester.pump();
-
     expect(find.byIcon(Icons.add), findsOneWidget);
   });
 
   testWidgets('Add one, delete with swipe', (WidgetTester tester) async {
-    //add one
+    //add one, mock user
+    //verify (the user has to be on the list)
+    //delete with swipe
     //verify
-    //delete wil swipe
   });
 
   testWidgets('Add one, delete all', (WidgetTester tester) async {
