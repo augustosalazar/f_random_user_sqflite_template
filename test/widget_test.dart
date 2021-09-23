@@ -116,8 +116,8 @@ void main() {
   });
 
   testWidgets('Add one, delete all', (WidgetTester tester) async {
-    //add one
-    //add one
+    //add one, mock user
+    //add one, mock user
     //verify
     // delete all
     // verify

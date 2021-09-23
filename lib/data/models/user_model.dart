@@ -1,5 +1,3 @@
-
-
 import 'package:f_local_database_sqlite_template/data/datasources/remote/user_remote_model.dart';
 
 class UserModel {
@@ -13,11 +11,11 @@ class UserModel {
   });
 
   final int? id;
-  final String name;
+  String name;
   final String gender;
   final String email;
   final String picture;
-  final String city;
+  String city;
 
   Map<String, dynamic> toMap() {
     return {

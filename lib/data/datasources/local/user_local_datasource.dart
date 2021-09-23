@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
+import 'package:loggy/loggy.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -19,11 +20,8 @@ class UserLocalDataSource {
   }
 
   Future _onCreate(Database db, int version) async {
-    await db.execute('''
-          CREATE TABLE users (
-            'CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, gender TEXT, city TEXT, email TEXT, picture TEXT
-          )
-          ''');
+    await db.execute(
+        'CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, gender TEXT, city TEXT, email TEXT, picture TEXT)');
   }
 
   Future<void> addUser(UserModel user) async {

@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(UserController());
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: UserListPage(),

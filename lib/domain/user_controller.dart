@@ -18,6 +18,8 @@ class UserController extends GetxController {
 
   addUser() async {
     logInfo("userController -> add user");
+    // something here
+    await getAllUsers();
   }
 
   Future<void> getAllUsers() async {
@@ -26,5 +28,13 @@ class UserController extends GetxController {
 
   Future<void> deleteUser(id) async {
     logInfo("userController -> delete user $id");
+    // something here
+    await getAllUsers();
+  }
+
+  Future<void> updateUser(user) async {
+    logInfo("userController -> updateUser user ${user.id}");
+    // something here
+    await getAllUsers();
   }
 }
