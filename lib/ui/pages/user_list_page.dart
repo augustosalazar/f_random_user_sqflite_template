@@ -11,9 +11,9 @@ class UserListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("User list"),
-      ),
+      appBar: AppBar(title: Text("User list"), actions: <Widget>[
+        IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+      ]),
       // this should show error msg when no connection and the icon portable_wifi_off_rounded
       floatingActionButton: FloatingActionButton(
         key: Key('addUserButton'),
