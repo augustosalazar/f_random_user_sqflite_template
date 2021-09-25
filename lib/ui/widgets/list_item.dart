@@ -29,12 +29,12 @@ class ListItem extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30.0,
-                    backgroundColor: Colors.transparent,
-                    child: ClipOval(child: Image.network(user.picture)),
-                  ),
-                  title: Text('${user.name}'),
+                  // leading: CircleAvatar(
+                  //   radius: 30.0,
+                  //   backgroundColor: Colors.transparent,
+                  //   child: ClipOval(child: Image.network(user.picture)),
+                  // ),
+                  title: Text(user.name),
                   subtitle: Text(user.city),
                 ),
               ),

@@ -34,7 +34,6 @@ dependencies:
   get: ^4.3.8
   http: ^0.13.3
   loggy: ^2.0.1
-  mockito: ^5.0.16
   sqflite: ^2.0.0+4
 
 dev_dependencies:
@@ -48,6 +47,8 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+  mockito: ^5.0.15
+  network_image_mock: ^2.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
