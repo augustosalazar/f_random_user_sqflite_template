@@ -9,6 +9,7 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int id = user.id ?? 0;
     return Center(
       child: Dismissible(
         key: UniqueKey(),
@@ -24,6 +25,7 @@ class ListItem extends StatelessWidget {
             )),
         onDismissed: (direction) {},
         child: Card(
+          key: Key('userItem' + id.toString()),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

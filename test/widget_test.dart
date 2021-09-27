@@ -135,13 +135,46 @@ void main() {
 
     await tester.pump();
 
-    expect(find.byKey(Key('userItem')), findsOneWidget);
+    expect(find.byType(Dismissible), findsOneWidget);
 
-    await tester.drag(find.byType(Dismissible), const Offset(500.0, 0.0));
+    await tester.drag(find.byKey(Key('userItem0')), const Offset(500.0, 0.0));
 
     await tester.pumpAndSettle();
 
-    expect(find.byKey(Key('userItem')), findsNothing);
+    expect(find.byType(Dismissible), findsNothing);
+  });
+
+  testWidgets('Add two, delete one with swipe', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    WidgetsFlutterBinding.ensureInitialized();
+
+    // Build our app and trigger a frame.
+    // https://pub.dev/packages/network_image_mock/example
+    await tester.pumpWidget(
+      MaterialApp(
+        home: mockNetworkImagesFor(() => UserListPage()),
+      ),
+    );
+
+    await tester.pump();
+
+    expect(find.byKey(Key('addUserButton')), findsOneWidget);
+
+    await tester.tap(find.byKey(Key('addUserButton')));
+
+    await tester.pump();
+
+    await tester.tap(find.byKey(Key('addUserButton')));
+
+    await tester.pump();
+
+    expect(find.byType(Dismissible), findsNWidgets(2));
+
+    await tester.drag(find.byKey(Key('userItem0')), const Offset(500.0, 0.0));
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(Dismissible), findsOneWidget);
   });
 
   testWidgets('Add one, delete all', (WidgetTester tester) async {
