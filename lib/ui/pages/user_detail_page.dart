@@ -1,7 +1,8 @@
-import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
-import 'package:f_local_database_sqlite_template/domain/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../domain/entities/random_user.dart';
+import '../controllers/user_controller.dart';
 
 class UserDetailPage extends StatefulWidget {
   const UserDetailPage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class UserDetailPage extends StatefulWidget {
 }
 
 class _UserDetailPageState extends State<UserDetailPage> {
-  UserModel user = Get.arguments[0];
+  RandomUser user = Get.arguments[0];
 
   final controllerName = TextEditingController();
   final controllerCity = TextEditingController();
@@ -67,7 +68,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                       flex: 2,
                       child: ElevatedButton(
                           onPressed: () async {
-                            UserModel userM = user;
+                            RandomUser userM = user;
                             userM.name = controllerName.text;
                             userM.city = controllerCity.text;
                             await userController.updateUser(userM);

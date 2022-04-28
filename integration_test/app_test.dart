@@ -1,7 +1,8 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:f_local_database_sqlite_template/core/network_info.dart';
-import 'package:f_local_database_sqlite_template/data/repositories/user_repository.dart';
-import 'package:f_local_database_sqlite_template/domain/home_controller.dart';
+import 'package:f_local_database_sqlite_template/domain/repositories/user_repository.dart';
+import 'package:f_local_database_sqlite_template/domain/use_case/users.dart';
+import 'package:f_local_database_sqlite_template/ui/controllers/home_controller.dart';
 import 'package:f_local_database_sqlite_template/ui/home.dart';
 import 'package:f_local_database_sqlite_template/ui/widgets/list_item.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ Future<Widget> createHomeScreen() async {
   Connectivity c = Get.find();
   Get.put(NetworkInfo(connectivity: c));
   Get.put(UserRepository());
+  Get.put(Users());
   Get.put(HomeController());
   return Home();
 }

@@ -1,7 +1,8 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:f_local_database_sqlite_template/core/network_info.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+
+import '../../core/network_info.dart';
 
 class HomeController extends GetxController {
   final connectvityResult = ConnectivityResult.none.obs;

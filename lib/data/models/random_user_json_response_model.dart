@@ -1,18 +1,6 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
-
-import 'package:meta/meta.dart';
-import 'dart:convert';
-
-RandomUserJsonReponse randomUserJsonReponseFromJson(String str) =>
-    RandomUserJsonReponse.fromJson(json.decode(str));
-
-String randomUserJsonReponseToJson(RandomUserJsonReponse data) =>
-    json.encode(data.toJson());
-
-class RandomUserJsonReponse {
-  RandomUserJsonReponse({
+//https://javiercbk.github.io/json_to_dart/
+class RandomUserJsonReponseModel {
+  RandomUserJsonReponseModel({
     required this.results,
     required this.info,
   });
@@ -20,8 +8,8 @@ class RandomUserJsonReponse {
   List<UserRemoteModel> results;
   Info info;
 
-  factory RandomUserJsonReponse.fromJson(Map<String, dynamic> json) =>
-      RandomUserJsonReponse(
+  factory RandomUserJsonReponseModel.fromJson(Map<String, dynamic> json) =>
+      RandomUserJsonReponseModel(
         results: List<UserRemoteModel>.from(
             json["results"].map((x) => UserRemoteModel.fromJson(x))),
         info: Info.fromJson(json["info"]),

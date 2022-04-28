@@ -1,14 +1,13 @@
-import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
-import 'package:f_local_database_sqlite_template/data/repositories/user_repository.dart';
-import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import '../../domain/entities/random_user.dart';
+import '../../domain/use_case/users.dart';
 
 class UserController extends GetxController {
-  var _users = <UserModel>[].obs;
-  UserRepository repository = Get.find();
+  var _users = <RandomUser>[].obs;
+  Users userUseCase = Get.find();
 
-  List<UserModel> get users => _users;
+  List<RandomUser> get users => _users;
 
   @override
   onInit() {
@@ -16,25 +15,33 @@ class UserController extends GetxController {
     getAllUsers();
   }
 
-  addUser() async {
+  Future<void> addUser() async {
     logInfo("userController -> add user");
-    // something here
+    await userUseCase.addUser();
     await getAllUsers();
   }
 
   Future<void> getAllUsers() async {
     logInfo("userController -> getAllUsers");
+    var list = await userUseCase.getAllUsers();
+    _users.value = list;
   }
 
   Future<void> deleteUser(id) async {
     logInfo("userController -> delete user $id");
-    // something here
+    await userUseCase.deleteUser(id);
+    await getAllUsers();
+  }
+
+  Future<void> deleteAll() async {
+    logInfo("userController -> delete all");
+    await userUseCase.deleteAll();
     await getAllUsers();
   }
 
   Future<void> updateUser(user) async {
     logInfo("userController -> updateUser user ${user.id}");
-    // something here
+    await userUseCase.updateUser(user);
     await getAllUsers();
   }
 }

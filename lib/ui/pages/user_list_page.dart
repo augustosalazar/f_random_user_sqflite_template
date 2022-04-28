@@ -1,8 +1,8 @@
-import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
-import 'package:f_local_database_sqlite_template/domain/home_controller.dart';
-import 'package:f_local_database_sqlite_template/domain/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../controllers/home_controller.dart';
+import '../controllers/user_controller.dart';
 import '../widgets/list_item.dart';
 
 class UserListPage extends StatelessWidget {
@@ -10,15 +10,35 @@ class UserListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //HomeController controller = Get.find();
+    UserController userController = Get.find();
     return Scaffold(
       appBar: AppBar(title: Text("User list"), actions: <Widget>[
-        IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+        IconButton(
+            key: Key('deleteAllButton'),
+            onPressed: () {
+              userController.deleteAll();
+            },
+            icon: Icon(Icons.delete))
       ]),
-      // this should show error msg when no connection and the icon portable_wifi_off_rounded
-      floatingActionButton: FloatingActionButton(
-        key: Key('addUserButton'),
-        child: Icon(Icons.add),
-        onPressed: () async {},
+      floatingActionButton: GetX<HomeController>(
+        builder: (controller) {
+          return FloatingActionButton(
+            key: Key('addUserButton'),
+            child: Icon(controller.connection
+                ? Icons.add
+                : Icons.portable_wifi_off_rounded),
+            onPressed: () async {
+              if (controller.connection) {
+                await userController.addUser();
+              } else {
+                Get.snackbar('Refresh failed!', "Can't get users",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red);
+              }
+            },
+          );
+        },
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -28,14 +48,15 @@ class UserListPage extends StatelessWidget {
   }
 
   Widget _getXlistView() {
-    // users should come from the controller
-    var users = <UserModel>[];
-    return ListView.builder(
-      itemCount: 0,
-      itemBuilder: (context, index) {
-        final user = users[index];
-        return ListItem(user);
-      },
+    UserController userController = Get.find();
+    return Obx(
+      () => ListView.builder(
+        itemCount: userController.users.length,
+        itemBuilder: (context, index) {
+          final user = userController.users[index];
+          return ListItem(user);
+        },
+      ),
     );
   }
 }

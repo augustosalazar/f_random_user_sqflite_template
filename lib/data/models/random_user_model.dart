@@ -1,7 +1,8 @@
+import '../../domain/entities/random_user.dart';
 import 'random_user_json_response_model.dart';
 
-class UserModel {
-  UserModel({
+class RandomUserModel {
+  RandomUserModel({
     this.id,
     required this.gender,
     required this.name,
@@ -33,11 +34,21 @@ class UserModel {
     return 'Dog{id: $id, name: $name, age: $gender, email: $email, picture : $picture, city: $city}';
   }
 
-  factory UserModel.fromRemote(UserRemoteModel remoteModel) => UserModel(
+  factory RandomUserModel.fromRemote(UserRemoteModel remoteModel) =>
+      RandomUserModel(
         gender: remoteModel.gender,
         name: remoteModel.name.first + " " + remoteModel.name.last,
         city: remoteModel.location.city,
         email: remoteModel.email,
         picture: remoteModel.picture.thumbnail,
+      );
+
+  RandomUser toEntity() => RandomUser(
+        id: id,
+        name: name,
+        gender: gender,
+        email: email,
+        picture: picture,
+        city: city,
       );
 }

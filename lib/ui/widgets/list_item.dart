@@ -1,14 +1,16 @@
-import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
-import 'package:f_local_database_sqlite_template/domain/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../domain/entities/random_user.dart';
+import '../controllers/user_controller.dart';
+import '../pages/user_detail_page.dart';
 
 class ListItem extends StatelessWidget {
-  final UserModel user;
+  final RandomUser user;
   const ListItem(this.user, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    UserController userController = Get.find();
     int id = user.id ?? 0;
     return Center(
       child: Dismissible(
@@ -23,7 +25,10 @@ class ListItem extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
             )),
-        onDismissed: (direction) {},
+        onDismissed: (direction) {
+          // Remove the item from the data source.
+          userController.deleteUser(user.id);
+        },
         child: Card(
           key: Key('userItem' + id.toString()),
           child: Row(
@@ -41,7 +46,9 @@ class ListItem extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => UserDetailPage(), arguments: [user, user.id]);
+                },
                 child: Text("more"),
               )
             ],

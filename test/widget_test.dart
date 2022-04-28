@@ -1,14 +1,8 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:f_local_database_sqlite_template/core/network_info.dart';
-import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
-import 'package:f_local_database_sqlite_template/domain/home_controller.dart';
-import 'package:f_local_database_sqlite_template/domain/user_controller.dart';
+import 'package:f_local_database_sqlite_template/domain/entities/random_user.dart';
+import 'package:f_local_database_sqlite_template/domain/use_case/users.dart';
+import 'package:f_local_database_sqlite_template/ui/controllers/home_controller.dart';
+import 'package:f_local_database_sqlite_template/ui/controllers/user_controller.dart';
 import 'package:f_local_database_sqlite_template/ui/pages/user_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,6 +11,8 @@ import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 class MockNetworkInfo with Mock implements NetworkInfo {}
+
+class MockGets with Mock implements Users {}
 
 class MockHomeController extends GetxService
     with Mock
@@ -35,10 +31,10 @@ class MockHomeController extends GetxService
 class MockUserController extends GetxService
     with Mock
     implements UserController {
-  var _users = <UserModel>[].obs;
+  var _users = <RandomUser>[].obs;
   int cont = 0;
   @override
-  List<UserModel> get users => _users;
+  List<RandomUser> get users => _users;
 
   @override
   Future onInit() {
@@ -63,7 +59,7 @@ class MockUserController extends GetxService
   Future<void> addUser() async {
     print("local addUser");
     if (cont == 0) {
-      UserModel user = UserModel(
+      RandomUser user = RandomUser(
           id: 0,
           city: 'Barranquilla',
           gender: 'Masculino',
@@ -72,8 +68,8 @@ class MockUserController extends GetxService
           picture: 'https://randomuser.me/api/portraits/thumb/men/75.jpg');
       _users.add(user);
       cont++;
-    } else {
-      UserModel user = UserModel(
+    } else if (cont == 1) {
+      RandomUser user = RandomUser(
           id: 1,
           city: 'Barranquilla',
           gender: 'Masculino',
@@ -93,6 +89,9 @@ void main() {
 
     final MockHomeController _mockHome = MockHomeController();
     Get.put<HomeController>(_mockHome);
+
+    final MockGets _mockGets = MockGets();
+    Get.put<Users>(_mockGets);
 
     final MockUserController _mockUser = MockUserController();
     Get.put<UserController>(_mockUser);
@@ -197,7 +196,7 @@ void main() {
 
     await tester.pump();
 
-    expect(find.byKey(Key('userItem')), findsOneWidget);
+    expect(find.byKey(Key('userItem0')), findsOneWidget);
 
     await tester.tap(find.byKey(Key('deleteAllButton')));
 

@@ -1,9 +1,8 @@
 import 'dart:async';
-
-import 'package:f_local_database_sqlite_template/data/models/user_model.dart';
-import 'package:loggy/loggy.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../../../domain/entities/random_user.dart';
 
 class UserLocalDataSource {
   Database? _database;
@@ -24,26 +23,23 @@ class UserLocalDataSource {
         'CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, gender TEXT, city TEXT, email TEXT, picture TEXT)');
   }
 
-  Future<void> addUser(UserModel user) async {
+  Future<void> addUser(RandomUser user) async {
+    print("Adding user to db");
     final db = await database;
 
-    await db.insert(
-      'users',
-      user.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    // aquí se debe llamar al db.insert
   }
 
-  Future<List<UserModel>> getAllUsers() async {
+  Future<List<RandomUser>> getAllUsers() async {
     // Get a reference to the database.
     final db = await database;
 
-    // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await db.query('users');
+    // aqui se debe hacer un query en la tabla usersa la base de datos que retorne un List<Map<String, dynamic>> maps
 
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    List<Map<String, dynamic>> maps = <Map<String, dynamic>>[];
+
     return List.generate(maps.length, (i) {
-      return UserModel(
+      return RandomUser(
         id: maps[i]['id'],
         name: maps[i]['name'],
         gender: maps[i]['gender'],
@@ -56,6 +52,16 @@ class UserLocalDataSource {
 
   Future<void> deleteUser(id) async {
     Database db = await database;
-    await db.delete('users', where: 'id = ?', whereArgs: [id]);
+    // aquí se debe llamar al db.delete usando el where con el id  - tabla users
+  }
+
+  Future<void> deleteAll() async {
+    Database db = await database;
+    // aquí se debe llamar al db.delete  - tabla users
+  }
+
+  Future<void> updateUser(RandomUser user) async {
+    Database db = await database;
+    // aquí se debe llamar al db.update actualizando nombre y cuidad usando el where con el id  - tabla users
   }
 }
