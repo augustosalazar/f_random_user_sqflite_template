@@ -34,7 +34,7 @@ class UserLocalDataSource {
     // Get a reference to the database.
     final db = await database;
 
-    // aqui se debe hacer un query en la tabla usersa la base de datos que retorne un List<Map<String, dynamic>> maps
+    // aqui se debe hacer un query en la tabla users, la base de datos que retorna un List<Map<String, dynamic>> maps
 
     List<Map<String, dynamic>> maps = <Map<String, dynamic>>[];
 
