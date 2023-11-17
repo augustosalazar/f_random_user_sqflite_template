@@ -1,4 +1,4 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:f_local_database_sqlite_template/ui/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
