@@ -1,4 +1,4 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:f_local_database_sqlite_template/core/network_info.dart';
 import 'package:f_local_database_sqlite_template/domain/repositories/user_repository.dart';
 import 'package:f_local_database_sqlite_template/domain/use_case/users.dart';
