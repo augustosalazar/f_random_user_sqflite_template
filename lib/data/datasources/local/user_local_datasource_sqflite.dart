@@ -1,10 +1,11 @@
 import 'dart:async';
+import 'package:loggy/loggy.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../../../domain/entities/random_user.dart';
+import 'i_user_local_datasource.dart';
 
-class UserLocalDataSource {
+class UserLocalDataSourceSqfLite implements IUserLocalDataSource {
   Database? _database;
 
   Future<Database> get database async {
@@ -23,13 +24,15 @@ class UserLocalDataSource {
         'CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, gender TEXT, city TEXT, email TEXT, picture TEXT)');
   }
 
+  @override
   Future<void> addUser(RandomUser user) async {
-    print("Adding user to db");
+    logInfo("Adding user to db");
     final db = await database;
     //TODO
     // aquí se debe llamar al db.insert
   }
 
+  @override
   Future<List<RandomUser>> getAllUsers() async {
     // Get a reference to the database.
     final db = await database;
@@ -50,18 +53,21 @@ class UserLocalDataSource {
     });
   }
 
+  @override
   Future<void> deleteUser(id) async {
     Database db = await database;
     //TODO
     // aquí se debe llamar al db.delete usando el where con el id  - tabla users
   }
 
+  @override
   Future<void> deleteAll() async {
     Database db = await database;
     //TODO
     // aquí se debe llamar al db.delete  - tabla users
   }
 
+  @override
   Future<void> updateUser(RandomUser user) async {
     Database db = await database;
     //TODO

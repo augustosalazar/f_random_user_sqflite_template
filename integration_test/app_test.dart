@@ -1,7 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:f_local_database_sqlite_template/core/network_info.dart';
+import 'package:f_local_database_sqlite_template/data/datasources/local/i_user_local_datasource.dart';
+import 'package:f_local_database_sqlite_template/data/datasources/local/user_local_datasource_sqflite.dart';
+import 'package:f_local_database_sqlite_template/data/datasources/remote/i_user_remote_datasource.dart';
+import 'package:f_local_database_sqlite_template/data/datasources/remote/user_remote_datasource.dart';
+import 'package:f_local_database_sqlite_template/data/repositories/user_repository.dart';
 import 'package:f_local_database_sqlite_template/domain/repositories/user_repository.dart';
-import 'package:f_local_database_sqlite_template/domain/use_case/users.dart';
+import 'package:f_local_database_sqlite_template/domain/use_case/user_use_case.dart';
 import 'package:f_local_database_sqlite_template/ui/controllers/home_controller.dart';
 import 'package:f_local_database_sqlite_template/ui/home.dart';
 import 'package:f_local_database_sqlite_template/ui/widgets/list_item.dart';
@@ -20,10 +25,11 @@ Future<Widget> createHomeScreen() async {
     ),
   );
   Get.put(Connectivity());
-  Connectivity c = Get.find();
-  Get.put(NetworkInfo(connectivity: c));
-  Get.put(UserRepository());
-  Get.put(Users());
+  Get.put(NetworkInfo(connectivity: Get.find()));
+  Get.put<IUserLocalDataSource>(UserLocalDataSourceSqfLite());
+  Get.put<IUserRemoteDataSource>(UserRemoteDatataSource());
+  Get.put<IUserRepository>(UserRepository(Get.find(), Get.find()));
+  Get.put(UserUseCase(Get.find()));
   Get.put(HomeController());
   return Home();
 }
