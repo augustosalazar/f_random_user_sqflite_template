@@ -28,8 +28,11 @@ class UserLocalDataSourceSqfLite implements IUserLocalDataSource {
   Future<void> addUser(RandomUser user) async {
     logInfo("Adding user to db");
     final db = await database;
-    //TODO
-    // aquí se debe llamar al db.insert
+    await db.insert(
+      'users',
+      user.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   @override
